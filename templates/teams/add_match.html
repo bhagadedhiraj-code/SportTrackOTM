@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Match - SportTrackOTM</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+    <nav>
+        <h2>SportTrackOTM</h2>
+        <a href="/">Home</a>
+        <a href="/teams/">Teams</a>
+        <a href="/teams/players/">Players</a>
+        <a href="/teams/matches/">Matches</a>
+        <a href="/admin/">Admin</a>
+    </nav>
+
+    <main>
+        <h1>Add New Match</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Add Match</button>
+        </form>
+    </main>
+
+</body>
+</html>

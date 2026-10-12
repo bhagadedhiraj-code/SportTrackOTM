@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h1>Edit Tournament</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Tournament Name</label>
+        <input type="text" name="name" value="{{ tournament.name }}" required>
+
+        <label>Sport</label>
+        <input type="text" name="sport" value="{{ tournament.sport }}" required>
+
+        <label>Start Date</label>
+        <input type="date" name="start_date" value="{{ tournament.start_date|date:'Y-m-d' }}" required>
+
+        <label>End Date</label>
+        <input type="date" name="end_date" value="{{ tournament.end_date|date:'Y-m-d' }}" required>
+
+        <label>Location</label>
+        <input type="text" name="location" value="{{ tournament.location }}" required>
+
+        <button type="submit">Update Tournament</button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'tournament_list' %}">← Back to Tournaments</a>
+
+</div>
+
+{% endblock %}

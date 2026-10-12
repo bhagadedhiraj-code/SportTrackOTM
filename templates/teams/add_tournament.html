@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Tournament - SportTrackOTM</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="/teams/">Teams</a>
+    <a href="/teams/players/">Players</a>
+    <a href="/teams/matches/">Matches</a>
+    <a href="/teams/tournaments/">Tournaments</a>
+    <a href="/admin/">Admin</a>
+</nav>
+
+<div class="container">
+    <h1>Add Tournament</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Save Tournament</button>
+    </form>
+
+    <br>
+
+    <a href="{% url 'tournament_list' %}">
+        Back to Tournaments
+    </a>
+</div>
+
+</body>
+</html>

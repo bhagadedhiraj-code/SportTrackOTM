@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Tournaments</h1>
+
+    <a href="{% url 'add_tournament' %}">Add Tournament</a>
+
+    {% for tournament in tournaments %}
+
+    <div class="card">
+
+        <h2>{{ tournament.name }}</h2>
+
+        <p><strong>Sport:</strong> {{ tournament.sport }}</p>
+
+        <p><strong>Location:</strong> {{ tournament.location }}</p>
+
+        <p><strong>Start Date:</strong> {{ tournament.start_date }}</p>
+
+        <p><strong>End Date:</strong> {{ tournament.end_date }}</p>
+
+        <p><strong>Description:</strong> {{ tournament.description }}</p>
+
+        {% if tournament.pk %}
+            <a href="{% url 'tournament_edit' tournament.pk %}">
+                Edit
+            </a>
+
+            <a href="{% url 'tournament_delete' tournament.pk %}"
+               onclick="return confirm('Are you sure you want to delete this tournament?');">
+                Delete
+            </a>
+        {% endif %}
+
+    </div>
+
+    {% empty %}
+
+    <p>No tournaments available.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

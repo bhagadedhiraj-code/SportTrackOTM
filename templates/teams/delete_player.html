@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Player - SportTrackOTM</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">SportTrackOTM</div>
+
+    <a href="/">Home</a>
+    <a href="{% url 'team_list' %}">Teams</a>
+    <a href="{% url 'player_list' %}">Players</a>
+    <a href="{% url 'match_list' %}">Matches</a>
+    <a href="{% url 'tournament_list' %}">Tournaments</a>
+    <a href="/admin/">Admin</a>
+</nav>
+
+<div class="container">
+
+    <h1>Delete Player</h1>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ player.name }}</strong>?
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <button type="submit">Yes, Delete</button>
+    </form>
+
+    <br>
+
+    <a href="{% url 'player_list' %}">
+        Cancel
+    </a>
+
+</div>
+
+</body>
+</html> 

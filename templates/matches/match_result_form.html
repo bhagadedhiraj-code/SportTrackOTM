@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="max-width: 850px; margin: 40px auto;">
+
+    <div class="card"
+         style="
+         padding: 30px;
+         border-radius: 15px;
+         box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+         ">
+
+        <h2>Update Match Result</h2>
+
+        <p style="color:#666;">
+            {{ match.team1 }} vs {{ match.team2 }}
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <h3>Match Score</h3>
+
+            <div style="
+                display:grid;
+                grid-template-columns:1fr 1fr;
+                gap:25px;
+                margin-bottom:25px;
+            ">
+
+                <div style="
+                    padding:20px;
+                    border-radius:12px;
+                    background:#f5f7fa;
+                ">
+
+                    <h3>{{ match.team1 }}</h3>
+
+                    <label>Runs</label>
+                    {{ form.team1_score }}
+
+                    <br>
+
+                    <label>Wickets</label>
+                    {{ form.team1_wickets }}
+
+                    <br>
+
+                    <label>Overs</label>
+                    {{ form.team1_overs }}
+
+                </div>
+
+
+                <div style="
+                    padding:20px;
+                    border-radius:12px;
+                    background:#f5f7fa;
+                ">
+
+                    <h3>{{ match.team2 }}</h3>
+
+                    <label>Runs</label>
+                    {{ form.team2_score }}
+
+                    <br>
+
+                    <label>Wickets</label>
+                    {{ form.team2_wickets }}
+
+                    <br>
+
+                    <label>Overs</label>
+                    {{ form.team2_overs }}
+
+                </div>
+
+            </div>
+
+
+            <h3>Match Result</h3>
+
+            <div style="margin-bottom:15px;">
+                <label>Winner</label>
+                {{ form.winner }}
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label>Result</label>
+                {{ form.result }}
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label>Player of the Match</label>
+                {{ form.player_of_match }}
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <label>Match Notes</label>
+                {{ form.match_notes }}
+            </div>
+
+
+            <button type="submit"
+                    style="
+                    background:#198754;
+                    color:white;
+                    border:none;
+                    padding:12px 25px;
+                    border-radius:8px;
+                    cursor:pointer;
+                    ">
+                Save Match Result
+            </button>
+
+            <a href="{% url 'match_list' %}"
+               style="
+               background:#6c757d;
+               color:white;
+               padding:12px 25px;
+               border-radius:8px;
+               text-decoration:none;
+               margin-left:10px;
+               ">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

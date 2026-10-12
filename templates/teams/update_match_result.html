@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Match Result - SportTrackOTM</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">SportTrackOTM</div>
+
+    <a href="/">Home</a>
+    <a href="{% url 'team_list' %}">Teams</a>
+    <a href="{% url 'player_list' %}">Players</a>
+    <a href="{% url 'match_list' %}">Matches</a>
+    <a href="{% url 'tournament_list' %}">Tournaments</a>
+    <a href="/admin/">Admin</a>
+</nav>
+
+<div class="container">
+
+    <h1>🏆 Update Match Result</h1>
+
+    <div class="card">
+
+        <div class="card-title">
+            {{ match.team1 }} vs {{ match.team2 }}
+        </div>
+
+        <div class="card-text">
+            <p><strong>Date:</strong> {{ match.date }}</p>
+            <p><strong>Time:</strong> {{ match.time }}</p>
+            <p><strong>Venue:</strong> {{ match.venue }}</p>
+        </div>
+
+        <br>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                Save Result
+            </button>
+
+            <a href="{% url 'match_list' %}">
+                <button type="button">
+                    Cancel
+                </button>
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+<footer>
+    SportTrackOTM © 2026
+</footer>
+
+</body>
+</html>

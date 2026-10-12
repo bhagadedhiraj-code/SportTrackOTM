@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .page {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        gap: 20px;
+    }
+
+    .top-bar h1 {
+        margin: 0;
+        font-size: 32px;
+    }
+
+    .add-btn {
+        background: #2563eb;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .add-btn:hover {
+        background: #1d4ed8;
+    }
+
+    .coach-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 22px;
+    }
+
+    .coach-card {
+        background: white;
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+    }
+
+    .coach-card h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+    }
+
+    .coach-info {
+        color: #555;
+        line-height: 1.8;
+    }
+
+    .actions {
+        margin-top: 18px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 9px 14px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .view {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .edit {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .delete {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .empty {
+        text-align: center;
+        padding: 50px;
+        background: white;
+        border-radius: 14px;
+        color: #666;
+    }
+</style>
+
+<div class="page">
+
+    <div class="top-bar">
+        <div>
+            <h1>Cricket Coaches</h1>
+            <p>Manage coaches and their profiles</p>
+        </div>
+
+        <a href="{% url 'add_coach' %}" class="add-btn">
+            + Add Coach
+        </a>
+    </div>
+
+    {% if coaches %}
+
+    <div class="coach-grid">
+
+        {% for coach in coaches %}
+
+        <div class="coach-card">
+
+            <h2>{{ coach.name }}</h2>
+
+            <div class="coach-info">
+                <div><strong>Email:</strong> {{ coach.email|default:"Not added" }}</div>
+
+                <div><strong>Phone:</strong> {{ coach.phone|default:"Not added" }}</div>
+
+                <div>
+                    <strong>Experience:</strong>
+                    {{ coach.experience|default:"Not added" }}
+                </div>
+
+                <div>
+                    <strong>Specialization:</strong>
+                    {{ coach.specialization|default:"Not added" }}
+                </div>
+
+                <div>
+                    <strong>Status:</strong>
+                    {{ coach.status|default:"Active" }}
+                </div>
+            </div>
+
+            <div class="actions">
+
+                <a href="{% url 'coach_detail' coach.id %}" class="btn view">
+                    View
+                </a>
+
+                <a href="{% url 'edit_coach' coach.id %}" class="btn edit">
+                    Edit
+                </a>
+
+                <a href="{% url 'delete_coach' coach.id %}" class="btn delete"
+                   onclick="return confirm('Delete this coach?');">
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty">
+        <h2>No coaches added yet</h2>
+        <p>Add your first cricket coach to start managing teams.</p>
+
+        <br>
+
+        <a href="{% url 'add_coach' %}" class="add-btn">
+            + Add Coach
+        </a>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

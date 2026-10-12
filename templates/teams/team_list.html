@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teams - SportTrackOTM</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">SportTrackOTM</div>
+
+    <a href="/">Home</a>
+    <a href="{% url 'team_list' %}">Teams</a>
+    <a href="{% url 'player_list' %}">Players</a>
+    <a href="{% url 'match_list' %}">Matches</a>
+    <a href="{% url 'tournament_list' %}">Tournaments</a>
+    <a href="/admin/">Admin</a>
+</nav>
+
+<div class="container">
+
+    <h1>🏆 Sports Teams</h1>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:20px;">
+        <form method="get" style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; flex:1; min-width:260px;">
+            <input type="text" name="search" value="{{ search }}" placeholder="Search teams or city" style="padding:10px 14px; border:1px solid #ddd; border-radius:8px; min-width:220px; flex:1;" />
+            <select name="status" style="padding:10px 14px; border:1px solid #ddd; border-radius:8px;">
+                <option value="">All Statuses</option>
+                <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Active</option>
+                <option value="inactive" {% if status_filter == 'inactive' %}selected{% endif %}>Inactive</option>
+            </select>
+            <button type="submit" style="padding:10px 18px; border:none; border-radius:8px; background:#0d6efd; color:white; cursor:pointer;">Search</button>
+        </form>
+
+        <a href="{% url 'add_team' %}">
+            <button>Add New Team</button>
+        </a>
+    </div>
+
+    <div class="cards">
+
+        {% for team in teams %}
+
+        <div class="card">
+
+            <div class="card-icon">🏆</div>
+
+            <div class="card-title">
+                {{ team.name }}
+            </div>
+
+            <div class="card-text">
+                <p><strong>Status:</strong> {{ team.get_status_display }}</p>
+                <p><strong>Coach:</strong> {{ team.coach.name|default:"Unassigned" }}</p>
+                <p><strong>City:</strong> {{ team.city }}</p>
+            </div>
+
+            <br>
+
+            <a href="{% url 'edit_team' team.id %}">
+                <button>Edit</button>
+            </a>
+
+            <a href="{% url 'delete_team' team.id %}">
+                <button>Delete</button>
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <div class="card">
+            <div class="card-title">No Teams Yet</div>
+            <div class="card-text">
+                Add your first sports team.
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<footer>
+    SportTrackOTM © 2026
+</footer>
+
+</body>
+</html>

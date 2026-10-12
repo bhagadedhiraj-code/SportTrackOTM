@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="max-width:1000px; margin:40px auto;">
+
+    <div style="
+        background:white;
+        padding:30px;
+        border-radius:15px;
+        box-shadow:0 4px 18px rgba(0,0,0,0.08);
+        margin-bottom:25px;
+    ">
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:20px;
+        ">
+
+            <div>
+                <h1 style="margin:0 0 8px;">
+                    {{ player.name }}
+                </h1>
+
+                <p style="margin:0; color:#666;">
+                    {% if player.team %}
+                        {{ player.team.name }}
+                    {% else %}
+                        No Team
+                    {% endif %}
+                </p>
+            </div>
+
+            <div>
+                <a href="{% url 'edit_player' player.id %}"
+                   style="
+                   background:#0d6efd;
+                   color:white;
+                   padding:10px 18px;
+                   border-radius:8px;
+                   text-decoration:none;
+                   margin-right:8px;
+                   ">
+                    Edit Player
+                </a>
+
+                <a href="{% url 'player_list' %}"
+                   style="
+                   background:#6c757d;
+                   color:white;
+                   padding:10px 18px;
+                   border-radius:8px;
+                   text-decoration:none;
+                   ">
+                    Back
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+        gap:20px;
+    ">
+
+        <div style="
+            background:white;
+            padding:25px;
+            border-radius:15px;
+            box-shadow:0 4px 18px rgba(0,0,0,0.08);
+        ">
+
+            <h2>Player Details</h2>
+
+            <p>
+                <strong>Name:</strong>
+                {{ player.name }}
+            </p>
+
+            <p>
+                <strong>Team:</strong>
+                {% if player.team %}
+                    {{ player.team.name }}
+                {% else %}
+                    No Team
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Jersey:</strong>
+                {% if player.jersey_number %}
+                    #{{ player.jersey_number }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Role:</strong>
+                {{ player.get_playing_role_display }}
+            </p>
+
+            <p>
+                <strong>Batting:</strong>
+                {{ player.get_batting_style_display }}
+            </p>
+
+            <p>
+                <strong>Bowling:</strong>
+                {{ player.get_bowling_style_display }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ player.get_status_display }}
+            </p>
+
+        </div>
+
+
+        <div style="
+            background:white;
+            padding:25px;
+            border-radius:15px;
+            box-shadow:0 4px 18px rgba(0,0,0,0.08);
+        ">
+
+            <h2>Contact</h2>
+
+            <p>
+                <strong>Email:</strong>
+                {% if player.email %}
+                    {{ player.email }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                {% if player.phone %}
+                    {{ player.phone }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Date of Birth:</strong>
+                {% if player.date_of_birth %}
+                    {{ player.date_of_birth }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Age:</strong>
+                {% if player.age %}
+                    {{ player.age }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Join Date:</strong>
+                {{ player.join_date }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div style="
+        background:white;
+        padding:25px;
+        border-radius:15px;
+        box-shadow:0 4px 18px rgba(0,0,0,0.08);
+        margin-top:20px;
+    ">
+
+        <h2>Performance Summary</h2>
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+            gap:15px;
+            margin-top:20px;
+        ">
+
+            <div style="
+                padding:20px;
+                background:#f5f7fa;
+                border-radius:10px;
+                text-align:center;
+            ">
+                <div style="font-size:28px; font-weight:bold;">
+                    {{ batting_stats.matches|default:"0" }}
+                </div>
+                <div>Matches</div>
+            </div>
+
+            <div style="
+                padding:20px;
+                background:#f5f7fa;
+                border-radius:10px;
+                text-align:center;
+            ">
+                <div style="font-size:28px; font-weight:bold;">
+                    {{ batting_stats.runs|default:"0" }}
+                </div>
+                <div>Runs</div>
+            </div>
+
+            <div style="
+                padding:20px;
+                background:#f5f7fa;
+                border-radius:10px;
+                text-align:center;
+            ">
+                <div style="font-size:28px; font-weight:bold;">
+                    {{ bowling_stats.wickets|default:"0" }}
+                </div>
+                <div>Wickets</div>
+            </div>
+
+            <div style="
+                padding:20px;
+                background:#f5f7fa;
+                border-radius:10px;
+                text-align:center;
+            ">
+                <div style="font-size:28px; font-weight:bold;">
+                    {{ motm_count|default:"0" }}
+                </div>
+                <div>Player of Match</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

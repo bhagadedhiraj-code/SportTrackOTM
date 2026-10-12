@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .venue-page {
+        max-width: 850px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .venue-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .venue-title {
+        margin: 0 0 8px;
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .venue-subtitle {
+        color: #6b7280;
+        margin-bottom: 30px;
+    }
+
+    .venue-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        font-size: 15px;
+        background: #fff;
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 30px;
+    }
+
+    .checkbox-row input {
+        width: 18px;
+        height: 18px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .btn-save {
+        background: #2563eb;
+        color: white;
+    }
+
+    .btn-save:hover {
+        background: #1d4ed8;
+    }
+
+    .btn-cancel {
+        background: #e5e7eb;
+        color: #374151;
+    }
+
+    .btn-cancel:hover {
+        background: #d1d5db;
+    }
+
+    .error-list {
+        color: #dc2626;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 700px) {
+        .venue-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full {
+            grid-column: auto;
+        }
+
+        .venue-card {
+            padding: 25px 20px;
+        }
+    }
+</style>
+
+<div class="venue-page">
+
+    <div class="venue-card">
+
+        <h1 class="venue-title">Add Cricket Venue</h1>
+
+        <p class="venue-subtitle">
+            Add a cricket stadium or match venue.
+        </p>
+
+        {% if form.errors %}
+            <div class="error-list">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="venue-grid">
+
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">
+                        Venue Name
+                    </label>
+                    {{ form.name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.city.id_for_label }}">
+                        City
+                    </label>
+                    {{ form.city }}
+                </div>
+
+                <div class="form-group full">
+                    <label for="{{ form.address.id_for_label }}">
+                        Address
+                    </label>
+                    {{ form.address }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.capacity.id_for_label }}">
+                        Capacity
+                    </label>
+                    {{ form.capacity }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.pitch_type.id_for_label }}">
+                        Pitch Type
+                    </label>
+                    {{ form.pitch_type }}
+                </div>
+
+                <div class="form-group full">
+                    <label for="{{ form.description.id_for_label }}">
+                        Description
+                    </label>
+                    {{ form.description }}
+                </div>
+
+            </div>
+
+            <div class="checkbox-row">
+                {{ form.is_available }}
+                <label for="{{ form.is_available.id_for_label }}">
+                    Venue is available
+                </label>
+            </div>
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-save">
+                    Save Venue
+                </button>
+
+                <a href="{% url 'venue_list' %}"
+                   class="btn btn-cancel">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

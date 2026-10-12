@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportTrackOTM</title>
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">SportTrackOTM</div>
+
+    <a href="/">Home</a>
+    <a href="{% url 'team_list' %}">Teams</a>
+    <a href="{% url 'player_list' %}">Players</a>
+    <a href="{% url 'match_list' %}">Matches</a>
+    <a href="{% url 'tournament_list' %}">Tournaments</a>
+    <a href="/admin/">Admin</a>
+</nav>
+
+<section class="hero">
+    <div class="hero-box">
+
+        <div class="hero-title">
+            Online Sports Team Management
+        </div>
+
+        <div class="hero-text">
+            Manage teams, players, matches and tournaments
+            from one simple platform.
+        </div>
+
+        <a class="btn" href="{% url 'team_list' %}">
+            Get Started
+        </a>
+
+    </div>
+</section>
+
+<section class="section">
+
+    <div class="section-title">
+        Manage Your Sports
+    </div>
+
+    <div class="cards">
+
+        <a href="{% url 'team_list' %}" class="card-link">
+            <div class="card">
+                <div class="card-icon">🏆</div>
+
+                <div class="card-title">
+                    Teams
+                </div>
+
+                <div class="card-text">
+                    Create and manage sports teams.
+                </div>
+            </div>
+        </a>
+
+
+        <a href="{% url 'player_list' %}" class="card-link">
+            <div class="card">
+                <div class="card-icon">👥</div>
+
+                <div class="card-title">
+                    Players
+                </div>
+
+                <div class="card-text">
+                    Store player details and team information.
+                </div>
+            </div>
+        </a>
+
+
+        <a href="{% url 'match_list' %}" class="card-link">
+            <div class="card">
+                <div class="card-icon">🏏</div>
+
+                <div class="card-title">
+                    Matches
+                </div>
+
+                <div class="card-text">
+                    Organize upcoming matches and results.
+                </div>
+            </div>
+        </a>
+
+
+        <a href="{% url 'tournament_list' %}" class="card-link">
+            <div class="card">
+                <div class="card-icon">🥇</div>
+
+                <div class="card-title">
+                    Tournaments
+                </div>
+
+                <div class="card-text">
+                    Manage tournaments and schedules.
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+</section>
+
+<footer>
+    SportTrackOTM © 2026
+</footer>
+
+</body>
+</html>

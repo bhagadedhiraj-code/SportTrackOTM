@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="team-detail-container">
+
+    <div class="team-header">
+        <div>
+            <h1>{{ team.name }}</h1>
+            <p>{{ team.city }} • {{ team.description|default:"Cricket Team" }}</p>
+        </div>
+
+        <div class="team-actions">
+            <a href="{% url 'edit_team' team.id %}" class="btn edit-btn">
+                Edit Team
+            </a>
+
+            <a href="{% url 'team_list' %}" class="btn back-btn">
+                Back
+            </a>
+        </div>
+    </div>
+
+    <div class="team-info-grid">
+
+        <div class="info-card">
+            <span class="label">Team Name</span>
+            <strong>{{ team.name }}</strong>
+        </div>
+
+        <div class="info-card">
+            <span class="label">Sport</span>
+            <strong>Cricket</strong>
+        </div>
+
+        <div class="info-card">
+            <span class="label">City</span>
+            <strong>{{ team.city }}</strong>
+        </div>
+
+        <div class="info-card">
+            <span class="label">Coach</span>
+            <strong>
+                {% if team.coach %}
+                    {{ team.coach.name }}
+                {% else %}
+                    Not assigned
+                {% endif %}
+            </strong>
+        </div>
+
+        <div class="info-card">
+            <span class="label">Players</span>
+            <strong>{{ team.player_count }}</strong>
+        </div>
+
+        <div class="info-card">
+            <span class="label">Status</span>
+            <strong>{{ team.status }}</strong>
+        </div>
+
+    </div>
+
+    <div class="players-section">
+
+        <div class="section-title">
+            <h2>Team Players</h2>
+            <a href="{% url 'add_player' %}" class="add-btn">
+                + Add Player
+            </a>
+        </div>
+
+        {% if team.player_set.all %}
+            <div class="players-list">
+
+                {% for player in team.player_set.all %}
+
+                <div class="player-card">
+                    <div>
+                        <h3>{{ player.name }}</h3>
+                        <p>{{ player.playing_role|default:"Player" }}</p>
+                    </div>
+
+                    <span class="jersey">
+                        #{{ player.jersey_number }}
+                    </span>
+                </div>
+
+                {% empty %}
+
+                <div class="empty-box">
+                    <p>No players are assigned to this team yet.</p>
+                </div>
+
+                {% endfor %}
+
+            </div>
+        {% else %}
+
+            <div class="empty-box">
+                <p>No players are assigned to this team yet.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<style>
+
+.team-detail-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.team-header h1 {
+    margin: 0;
+    font-size: 38px;
+}
+
+.team-header p {
+    margin-top: 8px;
+    opacity: 0.7;
+}
+
+.team-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn,
+.add-btn {
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+.edit-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.back-btn {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.team-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 40px;
+}
+
+.info-card {
+    padding: 22px;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.label {
+    display: block;
+    font-size: 13px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+}
+
+.info-card strong {
+    font-size: 18px;
+}
+
+.players-section {
+    margin-top: 20px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.section-title h2 {
+    margin: 0;
+}
+
+.add-btn {
+    background: #16a34a;
+    color: white;
+}
+
+.players-list {
+    display: grid;
+    gap: 12px;
+}
+
+.player-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+
+.player-card h3 {
+    margin: 0 0 5px;
+}
+
+.player-card p {
+    margin: 0;
+    opacity: 0.65;
+}
+
+.jersey {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.empty-box {
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    background: #f3f4f6;
+}
+
+@media (max-width: 700px) {
+
+    .team-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .team-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+{% endblock %}

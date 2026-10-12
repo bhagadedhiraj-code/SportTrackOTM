@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matches - SportTrackOTM</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">SportTrackOTM</div>
+
+    <a href="/">Home</a>
+    <a href="{% url 'team_list' %}">Teams</a>
+    <a href="{% url 'player_list' %}">Players</a>
+    <a href="{% url 'match_list' %}">Matches</a>
+    <a href="{% url 'tournament_list' %}">Tournaments</a>
+    <a href="/admin/">Admin</a>
+</nav>
+
+<div class="container">
+
+    <h1>🏏 Sports Matches</h1>
+
+    <a href="{% url 'add_match' %}">
+        <button>Add New Match</button>
+    </a>
+
+    <div class="cards">
+
+        {% for match in matches %}
+
+        <div class="card">
+
+            <div class="card-icon">🏏</div>
+
+            <div class="card-title">
+                {{ match.team1 }} vs {{ match.team2 }}
+            </div>
+
+            <div class="card-text">
+
+                <p>
+                    <strong>Date:</strong>
+                    {{ match.date }}
+                </p>
+
+                <p>
+                    <strong>Time:</strong>
+                    {{ match.time }}
+                </p>
+
+                <p>
+                    <strong>Venue:</strong>
+                    {{ match.venue }}
+                </p>
+
+                {% if match.result %}
+
+                    <p>
+                        <strong>Status:</strong>
+                        Completed
+                    </p>
+
+                    <p>
+                        <strong>Result:</strong>
+                        {{ match.result }}
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        <strong>Status:</strong>
+                        Upcoming
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="card">
+
+            <div class="card-title">
+                No Matches Yet
+            </div>
+
+            <div class="card-text">
+                Add your first sports match.
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<footer>
+    SportTrackOTM © 2026
+</footer>
+
+</body>
+</html>
